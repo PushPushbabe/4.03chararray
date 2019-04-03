@@ -20,7 +20,7 @@ int Return_strlen(char*  const str) //문자열의 수 리턴 함수
 	if (*str == NULL)
 	{
 		puts("String was NULL");
-		return 0;
+		return NULL;
 	}
 	else
 	{
@@ -37,12 +37,12 @@ char* Find_chr(char* const str, char const chr) //특정 문자 찾기 함수
 	if (chr == NULL)
 	{
 		puts("chr was NULL");
-		return 0;
+		return NULL;
 	}
 	else if (str == NULL)
 	{	
 		puts("str was NULL");
-		return 0;
+		return NULL;
 	}	
 	int count = 0;
 
@@ -53,7 +53,7 @@ char* Find_chr(char* const str, char const chr) //특정 문자 찾기 함수
 		if (*(str + count) == NULL) //탐색실패
 		{
 			puts("Find_chr 탐색실패");
-			return 0;
+			return NULL;
 		}
 	}
 
@@ -67,7 +67,7 @@ int chrcmp(char* const chr1, char* const chr2)
 	if (*chr1 == *chr2)
 		return 1;
 	else
-		return 0;
+		return NULL;
 }
 
 
@@ -79,39 +79,37 @@ char* Find_str(char * const base_str, char * const find_str) //문자열 내에�
 	int i = 0;
 	int max_count = strlen(find_str);
 	char * ptr_str = base_str;
-	int num = 0;
+	
 
 	if (base_str == NULL)
 	{
 		puts("base_str was NULL");
-		return 0;
+		return NULL;
 	}
 	else if (find_str == NULL)
 	{
 		puts("find_str was NULL");
-		return 0;
+		return NULL;
 	}
 	
 	//순차탐색 시작
 	ptr_str = Find_chr(base_str, *find_str);
-	/*Find_chr(ptr_str + 1, *(find_str + 1)) != 0 ?;
-	Find_chr(ptr_str + 2, *(find_str + 2)) != 0 ?;
-	Find_chr(ptr_str + 3, *(find_str + 3)) != 0 ?;
-	....add < strlen(find_str);
-*/
+
 	for (i = 0;i < max_count; i++)
-	{
-		printf("ptr_str이 가리키는 것 %c, find_str이 가리키는 것 %c\n", *(ptr_str + i),*( find_str + i));
-		num = chrcmp((ptr_str + i), (find_str + i));		
-		if (num == 0)
+	{			
+		if (chrcmp((ptr_str + i), (find_str + i))  == 0) //모든 문자가 맞지 않는 경우 초기화
 		{
 			ptr_str = Find_chr((ptr_str + i), *find_str);
 			i = 0;
-		}
-		else if (ptr_str == NULL)
-			return 0;
+
+			if (ptr_str == NULL) //찾지 못한 경우
+			{
+				puts("Find_str 탐색실패");
+				return ptr_str;
+				break;
+			}
+		}		
 	}
-	printf("ptr_str이 가리키는 것 %c, ptr_str이 가리키는 주소 %d", *(ptr_str), ptr_str);
 	return ptr_str;
 	
 }
@@ -125,13 +123,13 @@ char* Find_str(char * const base_str, char * const find_str) //문자열 내에�
 int main()
 {
 	int num=0;
-	char str1[20] = "des des dis";
+	char str1[200] = "des des dos das des des dos das des des dos das des dis";
 	char * ptr_char=0;
 	char str2[10] = "dis";
 
 	num = Return_strlen(str1);
 	
-	ptr_char = Find_chr(str1, 'w');
+	//ptr_char = Find_chr(str1, 'w');
 	cout << endl;
 	//printf("str1의 주소 %d, ptr_char의 주소 %d, ptr_char가 가리키고 있는 것%c", str1, ptr_char, *ptr_char);
 
