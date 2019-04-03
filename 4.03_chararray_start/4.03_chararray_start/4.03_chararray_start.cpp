@@ -3,30 +3,18 @@
 
 #include "pch.h"
 #include <iostream>
+#include "Mystring.h"
 
-typedef class stringclass
-{
-private :
-	int strlen;
-	char one_char;
-	char * str_char;
-public :
-	int return_strlen();
-	int str_same_compare();
-	void big_str_compare();
-	Str& str_cat();
-
-
-}Str;
-
-
-
-
+typedef enum { False, True }BOOL;
 
 
 
 int main()
 {
+	Str str1('o');
+	
+	BOOL logic = True;
+	std::cout << logic;
     std::cout << "Hello World!\n"; 
 }
 
